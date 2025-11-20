@@ -1,0 +1,39 @@
+imageType:
+  Original: {}
+
+featureClass:
+  firstorder:
+    - Energy
+    - TotalEnergy
+    - Entropy
+    - Minimum
+    - 10Percentile
+    - 90Percentile
+    - Maximum
+    - Mean
+    - Median
+    - InterquartileRange
+    - Range
+    - MeanAbsoluteDeviation
+    - RobustMeanAbsoluteDeviation
+    - RootMeanSquared
+    - StandardDeviation
+    - Skewness
+    - Kurtosis
+    - Variance
+    - Uniformity
+  shape: {}
+  glcm: {}
+  glrlm: {}
+  glszm: {}
+  gldm: {}
+  ngtdm: {}
+
+setting:
+  binWidth: 25
+  resampledPixelSpacing: null
+  interpolator: sitkBSpline
+  verbose: true
+  normalize: false
+  removeOutliers: 3
+  correctMask: true
