@@ -1,0 +1,64 @@
+# High-level configuration for the PROSTATEx radiomics pipeline (non-DL)
+
+# Paths
+raw_data_dir: data/PROSTATEx
+manifest_csv: data/PROSTATEx/manifest.csv
+output_root: exports
+# Example: exports/compete_no_overfit_FINAL_YYYYMMDD_HHMM will be created automatically
+
+# Imaging and preprocessing
+voxel_spacing: [1.0, 1.0, 1.0]
+resample_interpolator: sitkBSpline
+mask_interpolator: sitkNearestNeighbor
+normalize_per_fold: true
+pyradiomics_params: ararat/configs/params_pyradiomics.yaml
+
+# Cross-validation
+n_splits: 5
+random_seed: 42
+stratify_label: Target
+patient_id_col: PatientID
+lesion_id_col: LesionID
+holdout_flag_col: Split
+holdout_value: holdout
+
+# Feature selection
+feature_families: ["original_firstorder", "original_shape", "original_glcm", "original_glrlm", "original_glszm", "original_gldm", "original_ngtdm"]
+feature_selection_ks: [40, 60, 80]
+correlation_threshold: 0.9
+mutual_info_k: 100
+
+# Models
+log_reg:
+  C: 1.0
+  penalty: l2
+  class_weight: balanced
+  solver: liblinear
+random_forest:
+  n_estimators: 500
+  max_depth: 8
+  min_samples_leaf: 2
+  class_weight: balanced_subsample
+lightgbm:
+  num_leaves: 31
+  max_depth: 6
+  learning_rate: 0.05
+  n_estimators: 500
+  subsample: 0.8
+  colsample_bytree: 0.8
+  min_child_samples: 10
+  objective: binary
+  class_weight: balanced
+  early_stopping_rounds: 50
+  eval_metric: binary_logloss
+
+# Calibration
+calibration: isotonic  # options: isotonic, platt
+
+# Bootstrapping
+bootstrap_iterations: 1000
+bootstrap_seed: 123
+
+# Plotting
+max_shap_display: 20
+
